@@ -67,6 +67,10 @@ public class CurrencyService {
         if (firstValue.equals(secondValue)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Currency codes can't be same!");
         }
+
+        if (firstValue.trim().length() > 3 || secondValue.trim().length() > 3) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Unsupported currency code!");
+        }
         String pair = firstValue + "/" + secondValue;
         String reversePair  = secondValue + "/" + firstValue;
         Optional<Currency> optionalCurrency = currencyRepository.findById(pair);

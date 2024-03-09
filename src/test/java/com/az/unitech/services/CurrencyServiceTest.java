@@ -90,6 +90,13 @@ public class CurrencyServiceTest {
     }
 
     @Test
+    public void testUnsupportedLongCurrencyCode() {
+        ResponseEntity responseEntity = currencyService.getRate("AZNxxx", "EUR");
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        assertEquals("Unsupported currency code!", responseEntity.getBody());
+    }
+
+    @Test
     public void testCurrencyPairNotNeedsRefresh() {
 
         LocalDateTime now = LocalDateTime.now();
